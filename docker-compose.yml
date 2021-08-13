@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  django_api:
+    build: .
+    container_name: 'django_api'
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
+  db:
+    image: postgres:13.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=ctoiia
+      - POSTGRES_PASSWORD=rjhjkmkj[1
+      - POSTGRES_DB=garpix_dev
+  redis:
+    image: redis
+    container_name: 'redis'
+    command: redis-server
+    ports:
+      - "6379:6379"
+  celery:
+    build: ./
+    container_name: 'celery'
+    command: celery -A app worker -l info -B --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    env_file:
+      - ./.env.dev
+    volumes:
+      - ./:/app
+    links:
+      - redis
+    depends_on:
+      - redis
+    restart: unless-stopped
+volumes:
+  postgres_data:

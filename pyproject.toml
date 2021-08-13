@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "app"
+version = "0.1.0"
+description = ""
+authors = ["II9tka <51323231+II9tka@users.noreply.github.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = "^3.2.6"
+djoser = "^2.1.0"
+djangorestframework = "^3.12.4"
+Markdown = "^3.3.4"
+Pillow = "^8.3.1"
+python-magic = "^0.4.24"
+moviepy = "^1.0.3"
+mixins = "^0.1.4"
+factory-boy = "^3.2.0"
+pylint = "^2.9.6"
+django-celery-beat = "^2.2.1"
+psycopg2-binary = "^2.9.1"
+redis = "^3.5.3"
+drf-yasg = "^1.20.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
